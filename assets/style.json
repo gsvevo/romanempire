@@ -1,0 +1,451 @@
+{
+    "version": 8,
+    "name": "Roman Empire",
+    "metadata": {
+        "mapbox:autocomposite": true,
+        "mapbox:type": "default",
+        "mapbox:origin": "outdoors-v10",
+        "mapbox:groups": {},
+        "mapbox:trackposition": false,
+        "mapbox:print": {
+            "units": "in",
+            "width": 8.5,
+            "height": 11,
+            "resolution": 300,
+            "format": "png"
+        },
+        "mapbox:sdk-support": {
+            "js": "0.50.0",
+            "android": "6.7.0",
+            "ios": "4.6.0"
+        }
+    },
+    "center": [17.54667452052672, 42.32382008055953],
+    "zoom": 4.021213214382931,
+    "bearing": 0,
+    "pitch": 0,
+    "sources": {
+        "mapbox://mapbox.terrain-rgb": {
+            "url": "mapbox://mapbox.terrain-rgb",
+            "type": "raster-dem",
+            "tileSize": 256
+        },
+        "composite": {
+            "url": "mapbox://mapbox.mapbox-streets-v7,cedrox74.dva0rohg,cedrox74.cdjk8rdi,cedrox74.1eqtxoxn,cedrox74.b1us1fiq,cedrox74.6perk8vn",
+            "type": "vector"
+        }
+    },
+    "sprite": "mapbox://sprites/cedrox74/cjs772umy0pa51ftb8oe8ai3i",
+    "glyphs": "mapbox://fonts/cedrox74/{fontstack}/{range}.pbf",
+    "layers": [
+        {
+            "id": "background",
+            "type": "background",
+            "layout": {},
+            "paint": {
+                "background-color": "hsl(55, 33%, 74%)",
+                "background-opacity": 1
+            }
+        },
+        {
+            "id": "hillshading",
+            "type": "hillshade",
+            "source": "mapbox://mapbox.terrain-rgb",
+            "layout": {},
+            "paint": {
+                "hillshade-illumination-anchor": "map",
+                "hillshade-exaggeration": 1,
+                "hillshade-highlight-color": "hsla(44, 35%, 47%, 0.75)",
+                "hillshade-shadow-color": "hsla(130, 43%, 11%, 0.6)",
+                "hillshade-accent-color": "hsl(53, 71%, 72%)",
+                "hillshade-illumination-direction": 0
+            }
+        },
+        {
+            "id": "water",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "water",
+            "layout": {},
+            "paint": {
+                "fill-color": [
+                    "interpolate",
+                    ["exponential", 1],
+                    ["zoom"],
+                    6,
+                    "hsl(198, 28%, 27%)",
+                    10,
+                    "hsl(210, 41%, 54%)"
+                ]
+            }
+        },
+        {
+            "id": "water pattern",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "water",
+            "layout": {},
+            "paint": {
+                "fill-color": [
+                    "interpolate",
+                    ["exponential", 1],
+                    ["zoom"],
+                    6,
+                    "hsl(198, 36%, 33%)",
+                    10,
+                    "hsl(210, 41%, 54%)"
+                ],
+                "fill-opacity": [
+                    "interpolate",
+                    ["exponential", 1],
+                    ["zoom"],
+                    0,
+                    0,
+                    4,
+                    0,
+                    22,
+                    1
+                ],
+                "fill-pattern": [
+                    "step",
+                    ["zoom"],
+                    "diagonal-lines",
+                    22,
+                    "diagonal-lines"
+                ]
+            }
+        },
+        {
+            "id": "wetlands",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "landuse_overlay",
+            "filter": [
+                "all",
+                [
+                    "match",
+                    ["geometry-type"],
+                    ["Polygon", "LineString", "Point"],
+                    true,
+                    false
+                ],
+                [
+                    "match",
+                    ["get", "class"],
+                    ["wetland", "wetland_noveg"],
+                    true,
+                    false
+                ]
+            ],
+            "layout": {},
+            "paint": {
+                "fill-color": [
+                    "interpolate",
+                    ["exponential", 1],
+                    ["zoom"],
+                    6,
+                    "#324d58",
+                    10,
+                    "hsla(210, 41%, 54%, 0.9)"
+                ],
+                "fill-opacity": 1
+            }
+        },
+        {
+            "id": "waterways",
+            "type": "line",
+            "source": "composite",
+            "source-layer": "waterway",
+            "minzoom": 8,
+            "filter": [
+                "all",
+                [
+                    "match",
+                    ["geometry-type"],
+                    ["Polygon", "LineString", "Point"],
+                    true,
+                    false
+                ],
+                [
+                    "match",
+                    ["get", "class"],
+                    ["canal", "river", "stream"],
+                    true,
+                    false
+                ]
+            ],
+            "layout": {
+                "line-cap": ["step", ["zoom"], "butt", 11, "round"],
+                "line-join": "round"
+            },
+            "paint": {
+                "line-color": "hsl(210, 36%, 50%)",
+                "line-width": [
+                    "interpolate",
+                    ["exponential", 1.3],
+                    ["zoom"],
+                    8.5,
+                    1,
+                    17,
+                    10
+                ],
+                "line-opacity": 1
+            }
+        },
+        {
+            "id": "provinces",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "provinces-a3agb3",
+            "layout": {},
+            "paint": {
+                "fill-color": "hsla(0, 44%, 22%, 0)",
+                "fill-outline-color": "hsl(44, 41%, 35%)",
+                "fill-opacity": [
+                    "interpolate",
+                    ["exponential", 1],
+                    ["zoom"],
+                    3,
+                    0,
+                    4,
+                    1,
+                    5,
+                    1,
+                    8,
+                    0
+                ]
+            }
+        },
+        {
+            "id": "roads-low",
+            "type": "line",
+            "source": "composite",
+            "source-layer": "roads_low-9pr0or",
+            "filter": [
+                "all",
+                ["match", ["geometry-type"], ["LineString"], true, false],
+                ["all"]
+            ],
+            "layout": {"line-cap": "round", "line-join": "round"},
+            "paint": {
+                "line-color": "hsl(0, 24%, 32%)",
+                "line-opacity": [
+                    "interpolate",
+                    ["exponential", 1],
+                    ["zoom"],
+                    7.5,
+                    0,
+                    9,
+                    0.53,
+                    11,
+                    0.78,
+                    22,
+                    0.81
+                ],
+                "line-width": [
+                    "interpolate",
+                    ["exponential", 1],
+                    ["zoom"],
+                    0,
+                    1,
+                    10.04,
+                    1.8,
+                    12,
+                    2.5,
+                    13,
+                    4
+                ]
+            }
+        },
+        {
+            "id": "places-high",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "places_high-9ng5ry",
+            "filter": [
+                "all",
+                ["match", ["geometry-type"], ["Point"], true, false],
+                ["all"]
+            ],
+            "layout": {
+                "text-size": 16,
+                "text-letter-spacing": 0,
+                "text-font": ["Quintessential Regular"],
+                "symbol-placement": ["step", ["zoom"], "point", 11, "point"],
+                "text-offset": [0, 1.5],
+                "icon-size": [
+                    "interpolate",
+                    ["exponential", 1],
+                    ["zoom"],
+                    0,
+                    0.2,
+                    7,
+                    0.4,
+                    10,
+                    0.8,
+                    12,
+                    1,
+                    22,
+                    1
+                ],
+                "text-field": [
+                    "step",
+                    ["zoom"],
+                    "",
+                    7,
+                    ["to-string", ["get", "latin"]]
+                ],
+                "icon-image": "city1"
+            },
+            "paint": {
+                "icon-opacity": [
+                    "interpolate",
+                    ["exponential", 1],
+                    ["zoom"],
+                    0,
+                    0,
+                    6,
+                    0,
+                    9,
+                    0.72,
+                    12,
+                    1,
+                    22,
+                    1
+                ],
+                "text-color": "hsl(359, 63%, 31%)",
+                "text-halo-width": 1,
+                "text-halo-blur": 2,
+                "text-opacity": [
+                    "interpolate",
+                    ["exponential", 1],
+                    ["zoom"],
+                    0,
+                    0,
+                    7,
+                    0.06,
+                    8.9,
+                    1,
+                    22,
+                    1
+                ],
+                "text-halo-color": "hsla(53, 32%, 40%, 0.53)"
+            }
+        },
+        {
+            "id": "places-low",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "places_low-dyga0o",
+            "filter": [
+                "all",
+                ["match", ["geometry-type"], ["Point"], true, false],
+                ["all"]
+            ],
+            "layout": {
+                "text-size": [
+                    "interpolate",
+                    ["linear"],
+                    ["zoom"],
+                    9,
+                    20,
+                    13,
+                    28
+                ],
+                "text-font": ["Playfair Display SC Regular"],
+                "icon-image": "mansio",
+                "icon-size": [
+                    "interpolate",
+                    ["exponential", 1],
+                    ["zoom"],
+                    0,
+                    0.3,
+                    8,
+                    0.5,
+                    11.5,
+                    1.2
+                ],
+                "text-field": [
+                    "step",
+                    ["zoom"],
+                    "",
+                    7,
+                    ["to-string", ["get", "latin"]]
+                ],
+                "text-offset": [1, -1.8],
+                "symbol-placement": ["step", ["zoom"], "point", 11, "point"]
+            },
+            "paint": {
+                "icon-opacity": [
+                    "interpolate",
+                    ["exponential", 1],
+                    ["zoom"],
+                    0,
+                    0,
+                    7,
+                    0,
+                    9,
+                    1,
+                    22,
+                    1
+                ],
+                "text-color": "hsl(0, 10%, 13%)",
+                "text-halo-width": 1,
+                "text-halo-blur": 2,
+                "text-opacity": [
+                    "interpolate",
+                    ["exponential", 1],
+                    ["zoom"],
+                    0,
+                    0,
+                    7,
+                    0,
+                    8.7,
+                    1,
+                    22,
+                    1
+                ],
+                "text-halo-color": "hsla(36, 32%, 40%, 0.54)"
+            }
+        },
+        {
+            "id": "provinces-label",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "provinces_label-7jmecp",
+            "layout": {
+                "text-field": ["to-string", ["get", "name"]],
+                "text-font": [
+                    "Playfair Display SC Bold",
+                    "Arial Unicode MS Regular"
+                ]
+            },
+            "paint": {
+                "text-color": "#4b3a01",
+                "text-opacity": [
+                    "interpolate",
+                    ["linear"],
+                    ["zoom"],
+                    0,
+                    0,
+                    3,
+                    0,
+                    4,
+                    1,
+                    7,
+                    1,
+                    8,
+                    0,
+                    22,
+                    0
+                ]
+            }
+        }
+    ],
+    "created": "2019-02-16T08:02:57.353Z",
+    "id": "cjs772umy0pa51ftb8oe8ai3i",
+    "modified": "2019-02-16T19:35:50.804Z",
+    "owner": "cedrox74",
+    "visibility": "private",
+    "draft": false
+}
