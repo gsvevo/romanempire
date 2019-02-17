@@ -3,7 +3,7 @@ Map showing the Roman Empire at its maximum extent (2nd century CE). All provinc
 
 ![](img\snapshot.JPG)
 
-To access the map visit [http://127.0.0.1:5500/index.html]
+To access the map visit [https://gsvevo.github.io/romanempire/]
 
 ## Design Process
 
