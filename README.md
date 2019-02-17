@@ -1,7 +1,7 @@
 # Map of the Roman Empire
 Map showing the Roman Empire at its maximum extent (2nd century CE). All provinces and city names are from antiquity and no contemporary toponym is included.
 
-![](img\snapshot.JPG)
+(img\snapshot.JPG)
 
 To access the map visit [https://gsvevo.github.io/romanempire/]
 
